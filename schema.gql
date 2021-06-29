@@ -1,0 +1,67 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Hospital {
+  _id: String!
+  name: String!
+  address: String!
+  state: String!
+  managersIds: [Int!]!
+  email: String!
+}
+
+type UserProfile {
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String!
+}
+
+type User {
+  password: String!
+  role: String!
+  lastLoginAt: String!
+  profile: UserProfile!
+}
+
+input UserProfileInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String!
+}
+
+type Query {
+  getHospitalMutation: [Hospital!]!
+}
+
+type Mutation {
+  createHospitalMutation(newHospitalData: NewHospitalInput!): Hospital!
+  updateHospitaMutation(updatedHospitalData: HospitalUpdate!): Hospital!
+  createUserMutation(newUserData: NewUserInput!): User!
+}
+
+input NewHospitalInput {
+  name: String!
+  address: String!
+  state: String!
+  managersIds: [Int!]!
+  email: String!
+}
+
+input HospitalUpdate {
+  name: String!
+  address: String!
+  state: String!
+  managersIds: [Int!]!
+  email: String!
+  _id: String!
+}
+
+input NewUserInput {
+  password: String!
+  role: String!
+  lastLoginAt: String!
+  profile: UserProfileInput!
+}
