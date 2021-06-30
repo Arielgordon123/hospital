@@ -12,8 +12,8 @@ export class NewHospitalInput {
     @Field()
     state: string;
   
-    @Field(type=> [Int])
-    managersIds: number[];
+    @Field(type=> [String])
+    managersIds: string[];
   
     @Field()
     email: string;

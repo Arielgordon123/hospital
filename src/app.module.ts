@@ -12,7 +12,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true,
     }),
-    MongooseModule.forRoot(process.env.DB_URL),
+    MongooseModule.forRoot(process.env.DB_URL, { useFindAndModify: false }),
     HospitalModule,
     UserModule,
   ],

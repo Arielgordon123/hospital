@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 export class UserService {
 
 
+
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
   findAll() {
@@ -18,6 +19,7 @@ export class UserService {
       const user = {
         ...newUserData, password: hash
       }
+      console.log('object :>> ', user);
       const creaetedUser = new this.userModel(user);
       return creaetedUser.save();
     })
@@ -29,10 +31,12 @@ export class UserService {
       return this.userModel.findOneAndUpdate(payload._id, updatedUser).exec()
     })
   }
-
+  async getUserAndRole(userId: string) {
+    return this.userModel.findById(userId).exec();
+  }
   async login(email: string, password: string) {
     const found = await this.userModel.findOne({ "profile.email": email });
-
+  
     if (found && Object.values(UserRoles).includes(found.role as UserRoles)) {
       return bcrypt.compare(password, found.password).then((result) => {
         if (result) {

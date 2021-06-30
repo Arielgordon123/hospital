@@ -26,8 +26,8 @@ export class UserResolver {
 
   
   @Mutation(returns => User)
-  async loginWithPermissionsMutation(@Args('userName') userName: string, @Args('password') password: string) {
-    return this.userService.login(userName, password);
+  async loginWithPermissionsMutation(@Args('email') email: string, @Args('password') password: string) {
+    return this.userService.login(email, password);
   }
 //   @ResolveField()
 //   async posts(@Parent() author: Author) {

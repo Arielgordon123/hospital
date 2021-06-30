@@ -2,15 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Hospital {
-  _id: String!
-  name: String!
-  address: String!
-  state: String!
-  managersIds: [Int!]!
-  email: String!
-}
-
 type UserProfile {
   firstName: String!
   lastName: String!
@@ -19,10 +10,20 @@ type UserProfile {
 }
 
 type User {
+  _id: String
   password: String!
   role: String!
   lastLoginAt: String!
   profile: UserProfile!
+}
+
+type Hospital {
+  _id: String!
+  name: String!
+  address: String!
+  state: String!
+  managersIds: [String!]!
+  email: String!
 }
 
 input UserProfileInput {
@@ -33,6 +34,7 @@ input UserProfileInput {
 }
 
 type Query {
+  allHospitalsForUserQuery(limit: Float!, first: Float!, userId: String!): [Hospital!]!
   getHospitalMutation: [Hospital!]!
 }
 
@@ -41,14 +43,14 @@ type Mutation {
   updateHospitaMutation(updatedHospital: HospitalUpdate!): Hospital!
   createUserMutation(newUserData: NewUserInput!): User!
   updateUserMutation(updatedUserData: UpdateUserInput!): User!
-  loginWithPermissionsMutation(password: String!, userName: String!): User!
+  loginWithPermissionsMutation(password: String!, email: String!): User!
 }
 
 input NewHospitalInput {
   name: String!
   address: String!
   state: String!
-  managersIds: [Int!]!
+  managersIds: [String!]!
   email: String!
 }
 
@@ -56,7 +58,7 @@ input HospitalUpdate {
   name: String!
   address: String!
   state: String!
-  managersIds: [Int!]!
+  managersIds: [String!]!
   email: String!
   _id: String!
 }
