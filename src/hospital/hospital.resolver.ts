@@ -12,13 +12,12 @@ export class HospitalResolver {
 
   @Mutation(returns => Hospital)
   async createHospitalMutation(@Args('newHospitalData') newHospitalData: NewHospitalInput) {
-    console.log('newHospitalData :>> ', newHospitalData);
     return this.hospitalService.create(newHospitalData);
   }
 
   @Mutation(returns => Hospital)
-  async updateHospitaMutation(@Args('updatedHospitalData') updatedHospitalData: HospitalUpdate) {
-    return this.hospitalService.findOneAndUpdate(updatedHospitalData);
+  async updateHospitaMutation(@Args('updatedHospital') updatedHospital: HospitalUpdate) {
+    return this.hospitalService.findOneAndUpdate(updatedHospital);
   }
   
   @Query(returns => [Hospital])

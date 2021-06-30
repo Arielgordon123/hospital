@@ -12,9 +12,7 @@ export class HospitalService {
     return this.hospitalModel.find().exec()
   }
   create(newHospitalData: NewHospitalInput) {
-    console.log('newHospitalData :>> ', newHospitalData);
     const creaetedHospital = new this.hospitalModel(newHospitalData);
-    console.log('creaetedHospital :>> ', creaetedHospital);
     return creaetedHospital.save();
   }
 

@@ -38,7 +38,7 @@ type Query {
 
 type Mutation {
   createHospitalMutation(newHospitalData: NewHospitalInput!): Hospital!
-  updateHospitaMutation(updatedHospitalData: HospitalUpdate!): Hospital!
+  updateHospitaMutation(updatedHospital: HospitalUpdate!): Hospital!
   createUserMutation(newUserData: NewUserInput!): User!
 }
 

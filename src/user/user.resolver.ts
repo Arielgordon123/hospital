@@ -20,6 +20,8 @@ export class UserResolver {
     return this.userService.create(newUserData);
   }
 
+  
+
 //   @ResolveField()
 //   async posts(@Parent() author: Author) {
 //     const { id } = author;
