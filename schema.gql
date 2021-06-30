@@ -40,6 +40,8 @@ type Mutation {
   createHospitalMutation(newHospitalData: NewHospitalInput!): Hospital!
   updateHospitaMutation(updatedHospital: HospitalUpdate!): Hospital!
   createUserMutation(newUserData: NewUserInput!): User!
+  updateUserMutation(updatedUserData: UpdateUserInput!): User!
+  loginWithPermissionsMutation(password: String!, userName: String!): User!
 }
 
 input NewHospitalInput {
@@ -64,4 +66,12 @@ input NewUserInput {
   role: String!
   lastLoginAt: String!
   profile: UserProfileInput!
+}
+
+input UpdateUserInput {
+  password: String!
+  role: String!
+  lastLoginAt: String!
+  profile: UserProfileInput!
+  _id: String!
 }

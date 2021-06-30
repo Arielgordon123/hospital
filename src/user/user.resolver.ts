@@ -1,6 +1,5 @@
 import { Args, Int, Query, Resolver ,Mutation} from '@nestjs/graphql';
-import { NewUserInput } from './dto/new-user.input';
-
+import { NewUserInput, UpdateUserInput } from './dto/user.input';
 import {  User } from './models/user.model';
 import { UserService } from './user.service';
 
@@ -20,8 +19,16 @@ export class UserResolver {
     return this.userService.create(newUserData);
   }
 
-  
+  @Mutation(returns => User)
+  async updateUserMutation(@Args('updatedUserData') updatedUserData: UpdateUserInput) {
+    return this.userService.findOneAndUpdate(updatedUserData);
+  }
 
+  
+  @Mutation(returns => User)
+  async loginWithPermissionsMutation(@Args('userName') userName: string, @Args('password') password: string) {
+    return this.userService.login(userName, password);
+  }
 //   @ResolveField()
 //   async posts(@Parent() author: Author) {
 //     const { id } = author;

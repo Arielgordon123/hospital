@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { Schema as MongooseSchema } from 'mongoose';
 import { UserProfile } from '../models/user-profile.model';
 
 
@@ -17,4 +18,10 @@ export class NewUserInput {
 
     @Field(type => UserProfile)
     profile: UserProfile;
+}
+
+@InputType()
+export class UpdateUserInput extends NewUserInput {
+    @Field(() => String)
+    _id: MongooseSchema.Types.ObjectId;
 }

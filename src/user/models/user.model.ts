@@ -4,7 +4,7 @@ import { Document , Schema as MongooseSchema } from 'mongoose';
 import { UserResolver } from '../user.resolver';
 import { UserProfile } from './user-profile.model';
 
-enum Roles {
+export enum UserRoles {
   Basic = 'hospital-manager',
   Admin = 'division-manager',
 }
