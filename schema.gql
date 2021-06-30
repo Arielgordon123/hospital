@@ -4,11 +4,40 @@
 
 type Hospital {
   _id: String!
+  id: String
   name: String!
   address: String!
   state: String!
   managersIds: [Int!]!
   email: String!
+}
+
+type PageData {
+  userId: String!
+  limit: Int!
+  offset: Int!
+}
+
+type HospitalResponse {
+  page: HospitalConnection!
+  pageData: PageData
+}
+
+type HospitalConnection {
+  edges: [HospitalEdge!]
+  pageInfo: HospitalPageInfo
+}
+
+type HospitalEdge {
+  cursor: String
+  node: Hospital
+}
+
+type HospitalPageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
 }
 
 type UserProfile {
@@ -33,12 +62,23 @@ input UserProfileInput {
 }
 
 type Query {
-  getHospitalMutation: [Hospital!]!
+  allHospitalsForUserQuery(
+    """Paginate before opaque cursor"""
+    before: String
+
+    """Paginate after opaque cursor"""
+    after: String
+
+    """Paginate first"""
+    first: Float
+
+    """Paginate last"""
+    last: Float
+  ): HospitalResponse!
 }
 
 type Mutation {
   createHospitalMutation(newHospitalData: NewHospitalInput!): Hospital!
-  updateHospitaMutation(updatedHospital: HospitalUpdate!): Hospital!
   createUserMutation(newUserData: NewUserInput!): User!
   updateUserMutation(updatedUserData: UpdateUserInput!): User!
   loginWithPermissionsMutation(password: String!, userName: String!): User!
@@ -48,17 +88,8 @@ input NewHospitalInput {
   name: String!
   address: String!
   state: String!
-  managersIds: [Int!]!
+  managersIds: [String!]!
   email: String!
-}
-
-input HospitalUpdate {
-  name: String!
-  address: String!
-  state: String!
-  managersIds: [Int!]!
-  email: String!
-  _id: String!
 }
 
 input NewUserInput {

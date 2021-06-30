@@ -1,4 +1,4 @@
-FROM node:12.19.1 as development
+FROM node:12.20.0 as development
 
 WORKDIR /usr/src/app
 
@@ -12,7 +12,7 @@ COPY . .
 
 RUN yarn build
 
-FROM node:12.19.1-alpine as production
+FROM node:12.20.0-alpine as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -21,7 +21,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN yarn install--production
+RUN yarn install --production
 
 COPY . .
 

@@ -4,6 +4,8 @@ import { HospitalModule } from './hospital/hospital.module';
 import { UserModule } from './user/user.module';
 
 import { MongooseModule } from '@nestjs/mongoose';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { Hospital } from './hospital/models/hospital.model';
 
 
 @Module({
@@ -13,6 +15,14 @@ import { MongooseModule } from '@nestjs/mongoose';
       installSubscriptionHandlers: true,
     }),
     MongooseModule.forRoot(process.env.DB_URL),
+
+    MikroOrmModule.forRoot({
+      type: 'mongo',
+      entities: [Hospital],
+      dbName: 'Nest',
+      clientUrl: process.env.DB_URL
+    }),
+      
     HospitalModule,
     UserModule,
   ],
