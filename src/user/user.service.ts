@@ -1,11 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { NewUserInput } from './dto/new-user.input';
-import { User, UserDocument } from './models/user.model';
+import { UpdateUserInput } from './dto/user.input';
+import { User, UserDocument, UserRoles } from './models/user.model';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserService {
+
+
 
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
@@ -17,11 +19,32 @@ export class UserService {
       const user = {
         ...newUserData, password: hash
       }
+      console.log('object :>> ', user);
       const creaetedUser = new this.userModel(user);
       return creaetedUser.save();
     })
   }
-  findOneById(id: number) {
-    throw new Error('Method not implemented.');
+  findOneAndUpdate(payload: UpdateUserInput) {
+    return bcrypt.hash(payload.password, 10).then(hash => {
+      const { _id, ...updatedUser } = payload;
+      updatedUser.password = hash
+      return this.userModel.findOneAndUpdate(payload._id, updatedUser).exec()
+    })
+  }
+  async getUserAndRole(userId: string) {
+    return this.userModel.findById(userId).exec();
+  }
+  async login(email: string, password: string) {
+    const found = await this.userModel.findOne({ "profile.email": email });
+  
+    if (found && Object.values(UserRoles).includes(found.role as UserRoles)) {
+      return bcrypt.compare(password, found.password).then((result) => {
+        if (result) {
+          return found;
+        }
+      })
+    }
+    throw new UnauthorizedException('Error! wrong user or password');
+
   }
 }

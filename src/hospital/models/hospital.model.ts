@@ -1,6 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document ,Schema as MongooseSchema} from 'mongoose';
+// import * as mongoosePaginate from 'mongoose-paginate';
 
 export type HospitalDocument = Hospital & Document;
 
@@ -25,8 +26,8 @@ export class Hospital {
   state: string;
 
   @Prop()
-  @Field(type => [Int])
-  managersIds: number[];
+  @Field(type => [String])
+  managersIds: string[];
 
   @Prop()
   @Field(type => String)
@@ -35,3 +36,7 @@ export class Hospital {
 
 
 export const HospitalSchema = SchemaFactory.createForClass(Hospital);
+
+// const schema = SchemaFactory.createForClass(Hospital);
+// schema.plugin(mongoosePaginate);
+// export const HospitalSchema = schema
